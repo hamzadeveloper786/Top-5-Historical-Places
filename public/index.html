@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historical Places in Pakistan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h2>Historical Places In Pakistan</h2>
+
+    <form onsubmit="getPlaces(); return false">
+
+        <input type="text" id="cityName" placeholder="Enter City Name">
+
+        <br>
+
+        <button type="submit">Get History</button>
+    </form>
+    <div class="history">
+    <h1 id="name"></h1>
+    <h3 id="top1"></h3>
+    <p id="top1Info"></p>
+    <br>
+    <h3 id="top2"></h3>
+    <p id="top2Info"></p>
+    <br>
+    <h3 id="top3"></h3>
+    <p id="top3Info"></p>
+    <br>
+    <h3 id="top4"></h3>
+    <p id="top4Info"></p>
+    <br>
+    <h3 id="top5"></h3>
+    <p id="top5Info"></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.js"></script>
+    <script type="module">
+        window.getPlaces = function () {
+
+            let cityName = document.querySelector("#cityName").value;
+
+            axios.get(`/historicalplaces/${cityName}`)
+                .then(function (response) {
+                    // handle success
+                    console.log(response.data);
+                    document.querySelector("#name").innerHTML = `${response.data.city}`;
+                    document.querySelector("#top1").innerHTML = `${response.data.top1}`;
+                    document.querySelector("#top1Info").innerHTML = `${response.data.top1info}`;
+                    document.querySelector("#top2").innerHTML = `${response.data.top2}`;
+                    document.querySelector("#top2Info").innerHTML = `${response.data.top2info}`;
+                    document.querySelector("#top3").innerHTML = `${response.data.top3}`;
+                    document.querySelector("#top3Info").innerHTML = `${response.data.top3info}`;
+                    document.querySelector("#top4").innerHTML = `${response.data.top4}`;
+                    document.querySelector("#top4Info").innerHTML = `${response.data.top4info}`;
+                    document.querySelector("#top5").innerHTML = `${response.data.top5}`;
+                    document.querySelector("#top5Info").innerHTML = `${response.data.top5info}`;
+
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error.data);
+                    document.querySelector("#result").innerHTML = "error in getting weather data"
+                })
+        };
+    </script>
+
+</body>
+
+</html>

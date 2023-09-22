@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+h2{
+    margin: 0.2em;
+    text-align: center;
+}
+form{
+    text-align: center;
+    margin: 0.5em;
+    padding: 0.5em;
+}
+form > input{
+    padding: 0.5em;
+    border-radius: 0.5em;
+    border: 1px solid;
+    margin: 0.3em;
+    text-align: center;
+    color: blueviolet;
+}
+form >button {
+    border: 2px solid blueviolet;
+    padding: 0.5em;
+    border-radius: 0.2em;
+    width: 8em;
+}
+div.history{
+    border: 1px solid black;
+    padding: 0.5em;
+    margin: 0.5em;
+    border-radius: 0.9em;
+    background: antiquewhite;
+}
+div.history > h1{
+    text-align: center;
+    color: blueviolet;
+    margin: 0.3em;
+}
+div.history > h3{
+    margin: 0.5em;
+    color: salmon;
+}
+div.history > p{
+    padding: 0.2em;
+    color: chocolate;
+}
