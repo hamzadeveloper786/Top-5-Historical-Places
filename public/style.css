@@ -1,47 +1,62 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
-h2{
+
+body {
+    color: #ffff;
+    font-family: 'Inclusive Sans', sans-serif;
+    background: black;
+    max-width: 780px;
+    width: 100vw;
+    margin: auto;
+    height: 100vh;
+}
+
+h2 {
     margin: 0.2em;
     text-align: center;
 }
-form{
+
+form {
     text-align: center;
     margin: 0.5em;
     padding: 0.5em;
 }
-form > input{
+
+form>input {
     padding: 0.5em;
     border-radius: 0.5em;
     border: 1px solid;
     margin: 0.3em;
     text-align: center;
-    color: blueviolet;
 }
-form >button {
-    border: 2px solid blueviolet;
+
+form>button {
+    border: 2px solid;
     padding: 0.5em;
-    border-radius: 0.2em;
+    border-radius: 0.5em;
     width: 8em;
 }
-div.history{
+
+div.history {
+    box-shadow: rgb(255 255 255 / 25%) 0px 54px 55px, rgb(255 255 255 / 12%) 0px -12px 30px, rgb(255 255 255 / 12%) 0px 4px 6px, rgb(255 255 255 / 17%) 0px 12px 13px, rgb(255 255 255 / 9%) 0px -3px 5px;
     border: 1px solid black;
     padding: 0.5em;
     margin: 0.5em;
     border-radius: 0.9em;
-    background: antiquewhite;
+    background: transparent;
 }
-div.history > h1{
+
+div.history>h1 {
     text-align: center;
-    color: blueviolet;
     margin: 0.3em;
 }
-div.history > h3{
+
+div.history>h3 {
     margin: 0.5em;
-    color: salmon;
 }
-div.history > p{
+
+div.history>p {
     padding: 0.2em;
-    color: chocolate;
 }
