@@ -60,3 +60,18 @@ div.history>h3 {
 div.history>p {
     padding: 0.2em;
 }
+div#preComment{
+    margin-bottom: 0.5em;
+}
+div.comment{
+    border: 2px solid white;
+    margin: 0.5em;
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
+div.comment > h3{
+    margin: 0.5em;
+}
+div.comment > p{
+    margin: 0.5em;
+}

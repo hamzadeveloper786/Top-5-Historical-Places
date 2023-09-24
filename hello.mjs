@@ -1,10 +1,9 @@
 import express from 'express';
-import cors from 'cors';
 import path from 'path';
 const app = express();
 const __dirname =path.resolve();
 
-app.use(cors())
+app.use(express.json());
 app.get('/historicalplaces/:cityName', (req, res) => {
     console.log("This is My Historical Places ", new Date());
 
@@ -108,9 +107,29 @@ app.get('/historicalplaces/:cityName', (req, res) => {
     if(historicalDataToSend){
         res.send(historicalDataToSend)
     }else{
-        res.send(`Historical data not found for ${req.params.cityName}`);
+        res.status(404).send(`Historical data not found for ${req.params.cityName}`);
         console.log(`Historical data not found for ${req.params.cityName}`)
     }
+})
+
+let comments = [];
+
+app.post('/comment/:name', (req, res, next) => {
+    const name = req.params.name;
+    const comment = req.body.comment;
+
+    comments.push({
+        name: name,
+        comment: comment
+    })
+
+    res.send({
+        message: "comment posted successfully"
+    });
+
+})
+app.get('/comments', (req, res, next) => {
+    res.send(comments);
 })
 
 app.use('/', express.static(path.join(__dirname, 'public')));

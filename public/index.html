@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Josefin+Sans:wght@100;200;300;400;500;600;700&family=Open+Sans:wght@300;500;600;700;800&family=Quicksand:wght@600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Josefin+Sans:wght@100;200;300;400;500;600;700&family=Open+Sans:wght@300;500;600;700;800&family=Quicksand:wght@600&display=swap"
+        rel="stylesheet">
     <title>Historical Places in Pakistan</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -16,28 +18,24 @@
 
     <form onsubmit="getPlaces(); return false">
 
-        <input type="text" id="cityName" placeholder="Enter City Name">
+        <input type="text" id="cityName" placeholder="Enter City Name" required>
 
         <br>
 
         <button type="submit">Get History</button>
     </form>
-    <div class="history">
-    <h1 id="name"></h1>
-    <h3 id="top1"></h3>
-    <p id="top1Info"></p>
-    <br>
-    <h3 id="top2"></h3>
-    <p id="top2Info"></p>
-    <br>
-    <h3 id="top3"></h3>
-    <p id="top3Info"></p>
-    <br>
-    <h3 id="top4"></h3>
-    <p id="top4Info"></p>
-    <br>
-    <h3 id="top5"></h3>
-    <p id="top5Info"></p>
+    <div id="historyOutput">
+
+    </div>
+
+    <div id="commentDiv">
+        <h2>Comments</h2>
+        <form id="commentPost">
+            <input type="text" id="user" required placeholder="Enter Your Name">
+            <input type="text" id="comment" required placeholder="Enter Your comment...">
+            <button type="submit">Post Commnet</button>
+        </form>
+        <div id="preComment"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.js"></script>
@@ -48,27 +46,71 @@
 
             axios.get(`/historicalplaces/${cityName}`)
                 .then(function (response) {
-                    // handle success
                     console.log(response.data);
-                    document.querySelector("#name").innerHTML = `${response.data.city}`;
-                    document.querySelector("#top1").innerHTML = `${response.data.top1}`;
-                    document.querySelector("#top1Info").innerHTML = `${response.data.top1info}`;
-                    document.querySelector("#top2").innerHTML = `${response.data.top2}`;
-                    document.querySelector("#top2Info").innerHTML = `${response.data.top2info}`;
-                    document.querySelector("#top3").innerHTML = `${response.data.top3}`;
-                    document.querySelector("#top3Info").innerHTML = `${response.data.top3info}`;
-                    document.querySelector("#top4").innerHTML = `${response.data.top4}`;
-                    document.querySelector("#top4Info").innerHTML = `${response.data.top4info}`;
-                    document.querySelector("#top5").innerHTML = `${response.data.top5}`;
-                    document.querySelector("#top5Info").innerHTML = `${response.data.top5info}`;
-
+                    document.querySelector("#historyOutput").innerHTML = `<div class="history">
+            <h1 id="name">${response.data.city}</h1>
+            <h3 id="top1">${response.data.top1}</h3>
+            <p id="top1Info">${response.data.top1info}</p>
+            <br>
+            <h3 id="top2">${response.data.top2}</h3>
+            <p id="top2Info">${response.data.top2info}</p>
+            <br>
+            <h3 id="top3">${response.data.top3}</h3>
+            <p id="top3Info">${response.data.top3info}</p>
+            <br>
+            <h3 id="top4">${response.data.top4}</h3>
+            <p id="top4Info">${response.data.top4info}</p>
+            <br>
+            <h3 id="top5">${response.data.top5}</h3>
+            <p id="top5Info">${response.data.top5info}</p>
+        </div>`
                 })
                 .catch(function (error) {
-                    // handle error
                     console.log(error.data);
-                    document.querySelector("#result").innerHTML = "error in getting weather data"
+                    document.querySelector("#historyOutput").innerHTML = `Error in getting the history of ${cityName} data`
                 })
         };
+
+        document
+            .querySelector("#commentPost")
+            .addEventListener("submit", async (event) => {
+                event.preventDefault();
+
+                let nameInput = document.querySelector("#user").value;
+                let commentInput = document.querySelector("#comment").value;
+
+                try {
+                    const axiosResponse = await axios.post(`/comment/${nameInput}`, {
+                        comment: commentInput
+                    })
+                    console.log(axiosResponse.data);
+                    document.querySelector("#preComment").innerHTML +=
+                        `<div class="comment">
+                        <h3 class="commentName">${nameInput}:</h3>
+                        <p class="commentText">${commentInput}</p>
+                    </div>`
+
+                } catch (error) {
+                    // handle error
+                    console.log(error.data);
+                    document.querySelector("#preCommnet").innerHTML = "error in getting weather data"
+                }
+            })
+        const getAllComments = async () => {
+            const axiosResponse = await axios.get("/comments");
+            console.log(axiosResponse.data); // []
+
+            axiosResponse.data.map((eachComment) => {
+                document.querySelector("#preComment").innerHTML +=
+                    `<div class="comment">
+                        <h3 class="commentName">${eachComment.name}:</h3>
+                        <p class="commentText">${eachComment.comment}</p>
+                    </div>`
+            })
+        }
+        setTimeout(() => {
+            getAllComments();
+        }, 0)
     </script>
 
 </body>
